@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<body>
+    <h2>Weight Converter</h2>
+    <p>
+        <label>Pounds :</label>
+        <input id="lbs" type="number" placeholder="pounds"
+        oninput="convertlbs(this.value)">
+      </p>
+      <p>
+        <label>Gram :</label>
+        <input id="gram" type="number" placeholder="Grams"
+        oninput="convertgram(this.value)">
+      </p>
+      <p>
+        <label>Kilograms :</label>
+        <input id="kg" type="number" placeholder="Kilograms"
+        oninput="convertkg(this.value)">
+      </p>
+      <p>
+        <label>Ounces :</label>
+        <input id="ou" type="number" placeholder="Ounces"
+        oninput="convertounces(this.value)">
+      </p>
+</body>
+<script>
+function convertlbs(a){
+	document.getElementById("gram").value = a/0.0022046;
+	document.getElementById("kg").value = a/2.2046;
+	document.getElementById("ou").value = a*16;
+}
+function convertgram(a){
+	document.getElementById("lbs").value = a*0.0022046;
+	document.getElementById("kg").value = a/1000;
+	document.getElementById("ou").value = a*0.035274;
+}
+function convertkg(a){
+	document.getElementById("lbs").value = a*2.2046;
+	document.getElementById("gram").value = a*1000;
+	document.getElementById("ou").value = oa*35.274;
+}
+function convertounces(a){
+	document.getElementById("lbs").value = a/0.0625;
+	document.getElementById("gram").value = a/0.035274;
+	document.getElementById("kg").value = a/35.274;
+}
+
+</script>
+</html>
+
