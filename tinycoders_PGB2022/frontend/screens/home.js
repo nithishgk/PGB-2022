@@ -1,5 +1,6 @@
 import React from 'react';
-import { StyleSheet, Text, Image, View, TouchableOpacity } from 'react-native';
+import { StyleSheet, Text, Image, View, TouchableOpacity, ImageBackground } from 'react-native';
+import 'react-native-gesture-handler';
 import Title from '../components/title';
 
 const Home = ({navigation}) => {
@@ -10,7 +11,7 @@ const Home = ({navigation}) => {
                 <Image style={styles.image} source={{uri:"https://image.shutterstock.com/image-vector/quiz-comic-pop-art-style-260nw-1506580442.jpg"}}
                 resizeMode="contain"/>
             </View>
-            <TouchableOpacity style={styles.button} onPress={()=>{navigation.navigate("Quiz")}}>
+            <TouchableOpacity style={styles.button} onPress={()=>{navigation.navigate("Category")}}>
                 <Text style={styles.buttonText}>START</Text>
             </TouchableOpacity>
         </View>
@@ -21,8 +22,8 @@ export default Home;
 
 const styles = StyleSheet.create({
     image: {
-        height: 300,
-        width: 300,
+        height: 400,
+        width: 400,
     },
     imageContainer: {
         justifyContent: 'center',
@@ -33,6 +34,7 @@ const styles = StyleSheet.create({
         paddingTop: 40,
         paddingHorizontal: 20,
         height: '100%',
+        backgroundColor: '#B7B7A4',
     },
     button: {
         width: '100%',

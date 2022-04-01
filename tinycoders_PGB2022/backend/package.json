@@ -3,6 +3,7 @@
   "version": "1.0.0",
   "description": "",
   "main": "config.js",
+  "proxy":"http://localhost:2001",
   "scripts": {
     
     "dev": "nodemon server"

@@ -1,21 +1,30 @@
 import React from 'react';
 import { StyleSheet, Text, View, Image, TouchableOpacity } from 'react-native';
+import 'react-native-gesture-handler';
 import Title from '../components/title';
 
 
 const Result = ({navigation, route}) => {
     const {score} = route.params
+    const resultImage = score > 6 ? "https://www.wcupa.edu/healthSciences/images/_celebrate2020/congratulations.jpg" : "https://i0.wp.com/sourcingandsupplychain.com/wp-content/uploads/2020/06/better-luck-next-time.png?fit=860%2C906&ssl=1"
     return (
         <View style={styles.container}>
             <Title titleText='RESULTS'/>
             <Text style={styles.resultText}>Your score is: {score}</Text>
+            {score >= 6 && <Text style={styles.resultText}>Click on "GO TO LEVEL2" to proceed further</Text>}
             <View style={styles.imageContainer}>
-                <Image style={styles.image} source={{uri:"https://www.wcupa.edu/healthSciences/images/_celebrate2020/congratulations.jpg"}}
+                <Image style={styles.image} source={{uri: resultImage}}
                 resizeMode="contain"/>
             </View>
-            <TouchableOpacity style={styles.button} onPress={()=>navigation.navigate("Home")}>
-                <Text style={styles.buttonText}>GO TO HOME</Text>
-            </TouchableOpacity>
+            <View>
+                {score >= 6 && <TouchableOpacity style={styles.button}>
+                        <Text style={styles.buttonText}> GO TO LEVEL2 </Text>
+                    </TouchableOpacity>}
+                {score < 6 && <TouchableOpacity style={styles.button} onPress={()=>navigation.navigate("Home")}>
+                        <Text style={styles.buttonText}>GO TO HOME</Text>
+                    </TouchableOpacity>}
+            </View>
+            
         </View>
     );
 };

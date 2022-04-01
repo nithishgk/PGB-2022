@@ -7,11 +7,26 @@ const cors = require('cors')
 const mongoose =require('mongoose');
 const { MONGO_URI } = require('./config');
 //const Question = require('./models/posts');
-
+mongoose.set('debug', true);
 //middleware
 app.use(bodyParser.json());
 
-app.get('/hell',function(req,res){
+
+app.use(
+    cors({
+      origin:"*"
+    })
+  )
+
+// app.use(function (req, res, next) {
+//     res.setHeader('Access-Control-Allow-Origin', '*');
+//     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
+//     res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+//     res.setHeader('Access-Control-Allow-Credentials', true);
+//     next();
+//     });
+
+app.get('/',function(req,res){
     res.send("hello world");
 });
     
@@ -19,11 +34,11 @@ app.get('/hell',function(req,res){
 
 app.post('/questions', async (req, res) => {
     try {
-        const {score} = req.body
-        const {category} =req.body
-        const {level}=req.body
+        const { score } = req.body
+        const { category } = req.body
+        const { level } = req.body
         const { description } = req.body
-        const { correct_answer }= req.body
+        const { correct_answer } = req.body
         const { incorrect_answers } = req.body
          const question = await Question.create({
              score,
@@ -40,9 +55,10 @@ app.post('/questions', async (req, res) => {
     }
 })
 
-app.get('/questions', async (req, res) => {
+app.get('/question', async (req, res) => {
     try {
-        const questions = await Question.find()
+        const questions = await Question.find({"category":"java"});
+        console.log(questions)
         return res.status(200).json(questions)
     } catch (error) {
         return res.status(500).json({"error":error})
@@ -52,12 +68,9 @@ app.get('/questions', async (req, res) => {
 app.get('/questions/:category/:level', async (req, res) => {
     try {
         const lang1 = req.params.category
-        const level1=req.params.level
+        const level1 = req.params.level
 
-        
-  
-
-        const question = await Question.find({"category":lang1,"level":level1})        
+        const question = await Question.find( {"category":lang1,"level":level1})        
         if(!question){
             return res.status(404).json({})
         }else{
@@ -88,3 +101,5 @@ const port = 2001;
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 });
+
+
