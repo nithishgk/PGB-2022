@@ -57,7 +57,7 @@ app.post('/questions', async (req, res) => {
 
 app.get('/question', async (req, res) => {
     try {
-        const questions = await Question.find({"category":"java"});
+        const questions = await Question.find();
         console.log(questions)
         return res.status(200).json(questions)
     } catch (error) {

@@ -7,16 +7,16 @@ const Category = ({navigation}) => {
     return(
         <View style={styles.container}>
             <Title titleText='SELECT CATEGORY:'/>
-            <TouchableOpacity style={styles.categoryButtons} onPress={()=>{navigation.navigate("Quiz")}}>
+            <TouchableOpacity style={styles.categoryButtons} onPress={()=>{navigation.navigate('Quiz',{category:"java",level:"1"})}}>
                 <Text style={styles.categoryText}>JAVA</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.categoryButtons} onPress={()=>{navigation.navigate("Quiz")}}>
+            <TouchableOpacity style={styles.categoryButtons} onPress={()=>{navigation.navigate('Quiz',{category:"c",level:"1"})}}>
                 <Text style={styles.categoryText}>C</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.categoryButtons}>
+            <TouchableOpacity style={styles.categoryButtons} onPress={()=>{navigation.navigate('Quiz',{category:"python",level:"1"})}}>
                 <Text style={styles.categoryText}>PYTHON</Text>
             </TouchableOpacity>
-            <TouchableOpacity style={styles.categoryButtons}>
+            <TouchableOpacity style={styles.categoryButtons} onPress={()=>{navigation.navigate('Quiz',{category:"c++",level:"1"})}}>
                 <Text style={styles.categoryText}>C++</Text>
             </TouchableOpacity>
         </View>

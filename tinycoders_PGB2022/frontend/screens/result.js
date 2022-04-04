@@ -5,28 +5,52 @@ import Title from '../components/title';
 
 
 const Result = ({navigation, route}) => {
-    const {score} = route.params
+    const {score} = route.params;
+    const {category} = route.params;
+    const {level} = route.params;
     const resultImage = score > 6 ? "https://www.wcupa.edu/healthSciences/images/_celebrate2020/congratulations.jpg" : "https://i0.wp.com/sourcingandsupplychain.com/wp-content/uploads/2020/06/better-luck-next-time.png?fit=860%2C906&ssl=1"
-    return (
-        <View style={styles.container}>
-            <Title titleText='RESULTS'/>
-            <Text style={styles.resultText}>Your score is: {score}</Text>
-            {score >= 6 && <Text style={styles.resultText}>Click on "GO TO LEVEL2" to proceed further</Text>}
-            <View style={styles.imageContainer}>
-                <Image style={styles.image} source={{uri: resultImage}}
-                resizeMode="contain"/>
+    if(level==="1"){
+        return (
+            <View style={styles.container}>
+                <Title titleText='RESULTS'/>
+                <Text style={styles.resultText}>Your score is: {score}</Text>
+                {score >= 6 && <Text style={styles.resultText}>Click on "GO TO LEVEL2" to proceed further</Text>}
+                <View style={styles.imageContainer}>
+                    <Image style={styles.image} source={{uri: resultImage}}
+                    resizeMode="contain"/>
+                </View>
+                <View>
+                    {score >= 6 && <TouchableOpacity style={styles.button} onPress={()=>navigation.navigate("Quiz",{category:category,level:"2"})}>
+                            <Text style={styles.buttonText}> GO TO LEVEL2 </Text>
+                        </TouchableOpacity>}
+                    {score < 6 && <TouchableOpacity style={styles.button} onPress={()=>navigation.navigate("Home")}>
+                            <Text style={styles.buttonText}>GO TO HOME</Text>
+                        </TouchableOpacity>}
+                </View>
+                
             </View>
-            <View>
-                {score >= 6 && <TouchableOpacity style={styles.button}>
-                        <Text style={styles.buttonText}> GO TO LEVEL2 </Text>
-                    </TouchableOpacity>}
-                {score < 6 && <TouchableOpacity style={styles.button} onPress={()=>navigation.navigate("Home")}>
-                        <Text style={styles.buttonText}>GO TO HOME</Text>
-                    </TouchableOpacity>}
+        );
+    }
+    else{
+        return (
+            <View style={styles.container}>
+                <Title titleText='RESULTS'/>
+                <Text style={styles.resultText}>Your score is: {score}</Text>
+                {score >= 6 && <Text style={styles.resultText}>Congratulations you have passed the {category} test</Text>}
+                <View style={styles.imageContainer}>
+                    <Image style={styles.image} source={{uri: resultImage}}
+                    resizeMode="contain"/>
+                </View>
+                <View>
+                    {score < 6 && <TouchableOpacity style={styles.button} onPress={()=>navigation.navigate("Home")}>
+                            <Text style={styles.buttonText}>Try Again...!</Text>
+                        </TouchableOpacity>}
+                </View>
+                
             </View>
-            
-        </View>
-    );
+        );
+    }
+    
 };
 
 export default Result;

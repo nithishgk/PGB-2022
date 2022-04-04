@@ -11,25 +11,27 @@ const  shuffleArray = (array) => {
     }
 }
 
-const Quiz = ({navigation},props) => {
+const Quiz = ({navigation,route}) => {
+    var limit = 0;
+    const {category} = route.params;
+    const {level} = route.params;
     const[questions, setQuestions] = useState();
     const[ques, setQues] = useState(0);
     const[options, setOptions] = useState([])
     const[score, setScore] = useState(0)
     const[data, setData] = useState([])
     const[isLoading, setIsLoading] = useState(false)
+
     const getQuiz = async () => {
         setIsLoading(true)
-        const url = 'http://localhost:2001/questions/java/1';
+       //console.log("Nithish");
+        var url = 'http://localhost:2001/questions/' + category + '/' + level ;
         const res = await fetch(url);
         const data = await res.json();
-        console.log(data);
-        console.log(props);
+        //console.log(level);
         setData(data);
         var lst = [];
         data.map((x) => lst.push(x.description));
-        // console.log(lst);
-
         setQuestions(lst);
         setOptions(generateOptionsAndShuffle(data[0]));
         setIsLoading(false)
@@ -37,16 +39,19 @@ const Quiz = ({navigation},props) => {
 
     useEffect(() => {
         getQuiz();
-    },[]);
+    },[level]);
 
     const handleNextPress = () => {
         setQues(ques+1)
-        setOptions(generateOptionsAndShuffle(questions[ques+1]))
+        setOptions(generateOptionsAndShuffle(data[ques+1]))
     }
 
     const generateOptionsAndShuffle = (question) => {
+        //console.log(question);
         const options = question.incorrect_answers
+  
         options.push(question.correct_answer)
+
         shuffleArray(options)
 
         return options
@@ -55,21 +60,27 @@ const Quiz = ({navigation},props) => {
     const handleSelectedOption = (option) => {
         if(option==data[ques].correct_answer){
             setScore(score+1)
-            console.log(score+1);
         }
-        if(ques!==9){
-            let x=ques+1
+        let x = ques;
+        x = x%10
+        if(x == 9){
+            handleShowResult()
+        }
+        else{
+            x = x+1
             setQues(x)
             setOptions(generateOptionsAndShuffle(data[x]))
         }
-        if(ques === 9){
-            handleShowResult()
-        }   
+        //console.log(ques,x); 
     }
 
     const handleShowResult = () => {
+        setQues(0);
+        setScore(0);
         navigation.navigate('Result', {
-            score:score
+            score:score,
+            category:category,
+            level:level
         })
     }
 
@@ -80,7 +91,7 @@ const Quiz = ({navigation},props) => {
             </View> : questions && (
                 <View style={styles.parent}>
                     <View style={styles.questionContainer}>
-                        <Text style={styles.question}>Q. {decodeURIComponent(questions[ques])}</Text>
+                        <Text style={styles.question}>Q{ques+1}.{decodeURIComponent(questions[ques])}</Text>
                     </View>
                     <View style={styles.optionsContainer}>
                         <TouchableOpacity style={styles.optionButton} onPress={() => handleSelectedOption(options[0])}>
