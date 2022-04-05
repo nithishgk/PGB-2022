@@ -3,9 +3,10 @@ import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import 'react-native-gesture-handler';
 import Title from '../components/title';
 
-const Category = ({navigation}) => {
+const Category = ({navigation, route}) => {
     return(
         <View style={styles.container}>
+            <Text style={styles.greetText}>Welcome {route.params.key},</Text>
             <Title titleText='SELECT CATEGORY:'/>
             <TouchableOpacity style={styles.categoryButtons} onPress={()=>{navigation.navigate('Quiz',{category:"java",level:"1"})}}>
                 <Text style={styles.categoryText}>JAVA</Text>
@@ -44,5 +45,9 @@ const styles = StyleSheet.create({
     categoryText: {
         fontSize: 30,
         fontWeight: '300',
+    },
+    greetText: {
+        fontSize: 20,
+        alignSelf: 'flex-end',
     },
 })

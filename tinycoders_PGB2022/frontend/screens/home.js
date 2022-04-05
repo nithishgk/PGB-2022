@@ -1,17 +1,27 @@
 import React from 'react';
-import { StyleSheet, Text, Image, View, TouchableOpacity, ImageBackground } from 'react-native';
+import { StyleSheet, Text, Image, View, TouchableOpacity, TextInput } from 'react-native';
 import 'react-native-gesture-handler';
 import Title from '../components/title';
+import { useState } from 'react';
 
 const Home = ({navigation}) => {
+    const [name, setName] = useState('');
     return (
         <View style={styles.container}>
             <Title titleText='QUIZZLLER'/>
+            <View style={styles.inputContainer}>
+                <Text style={styles.inputText}>Enter your name:</Text>
+                <TextInput 
+                    style={styles.inputTextBox} 
+                    placeholder='e.g. John Smith'
+                    value={name}
+                    onChangeText = {(name) => setName(name)}/>
+            </View>
             <View style={styles.imageContainer}>
                 <Image style={styles.image} source={{uri:"https://image.shutterstock.com/image-vector/quiz-comic-pop-art-style-260nw-1506580442.jpg"}}
                 resizeMode="contain"/>
             </View>
-            <TouchableOpacity style={styles.button} onPress={()=>{navigation.navigate("Category")}}>
+            <TouchableOpacity style={styles.button} onPress={()=>{navigation.navigate("Category", {key: name})}}>
                 <Text style={styles.buttonText}>START</Text>
             </TouchableOpacity>
         </View>
@@ -48,5 +58,18 @@ const styles = StyleSheet.create({
         fontSize: 24,
         fontWeight: '600',
         color: 'white',
+    },
+    inputContainer: {
+        alignSelf: 'center',
+    },
+    inputText: {
+        fontSize: 25,
+    },
+    inputTextBox: {
+        borderWidth: 1,
+        borderColor: '#777',
+        padding: 8,
+        margin: 10,
+        width: 200,
     },
 })

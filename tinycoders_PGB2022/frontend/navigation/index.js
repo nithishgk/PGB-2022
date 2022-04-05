@@ -10,7 +10,7 @@ const Stack = createStackNavigator();
 
 function MyStack() {
   return (
-    <Stack.Navigator>
+    <Stack.Navigator initialRouteName="Home">
       <Stack.Screen name="Home" component={Home} options={{headerShown:false}}/>
       <Stack.Screen name="Category" component={Category} options={{headerShown:false}}/>
       <Stack.Screen name="Quiz" component={Quiz} options={{headerShown:false}}/>

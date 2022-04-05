@@ -8,7 +8,7 @@ const Result = ({navigation, route}) => {
     const {score} = route.params;
     const {category} = route.params;
     const {level} = route.params;
-    const resultImage = score > 6 ? "https://www.wcupa.edu/healthSciences/images/_celebrate2020/congratulations.jpg" : "https://i0.wp.com/sourcingandsupplychain.com/wp-content/uploads/2020/06/better-luck-next-time.png?fit=860%2C906&ssl=1"
+    const resultImage = score >= 6 ? "https://www.wcupa.edu/healthSciences/images/_celebrate2020/congratulations.jpg" : "https://i0.wp.com/sourcingandsupplychain.com/wp-content/uploads/2020/06/better-luck-next-time.png?fit=860%2C906&ssl=1"
     if(level==="1"){
         return (
             <View style={styles.container}>
@@ -42,11 +42,10 @@ const Result = ({navigation, route}) => {
                     resizeMode="contain"/>
                 </View>
                 <View>
-                    {score < 6 && <TouchableOpacity style={styles.button} onPress={()=>navigation.navigate("Home")}>
-                            <Text style={styles.buttonText}>Try Again...!</Text>
-                        </TouchableOpacity>}
+                <TouchableOpacity style={styles.button} onPress={()=>navigation.navigate("Home")}>
+                            <Text style={styles.buttonText}>Go To Home</Text>
+                        </TouchableOpacity>
                 </View>
-                
             </View>
         );
     }

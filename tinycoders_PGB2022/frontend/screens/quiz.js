@@ -3,6 +3,8 @@ import { StyleSheet, Text, View, TouchableOpacity } from 'react-native';
 import 'react-native-gesture-handler';
 import {useState} from 'react';
 import {useEffect} from 'react';
+import {fetch as fetchPolyfill} from 'whatwg-fetch'
+
 
 const  shuffleArray = (array) => {
     for (let i = array.length - 1; i > 0; i--) {
@@ -24,8 +26,7 @@ const Quiz = ({navigation,route}) => {
 
     const getQuiz = async () => {
         setIsLoading(true)
-       //console.log("Nithish");
-        var url = 'http://localhost:2001/questions/' + category + '/' + level ;
+        var url = 'http://192.168.21.73:2001/questions/' + category + '/' + level ;
         const res = await fetch(url);
         const data = await res.json();
         //console.log(level);
@@ -49,11 +50,8 @@ const Quiz = ({navigation,route}) => {
     const generateOptionsAndShuffle = (question) => {
         //console.log(question);
         const options = question.incorrect_answers
-  
         options.push(question.correct_answer)
-
         shuffleArray(options)
-
         return options
     }
 
@@ -62,7 +60,7 @@ const Quiz = ({navigation,route}) => {
             setScore(score+1)
         }
         let x = ques;
-        x = x%10
+        //x = x%10
         if(x == 9){
             handleShowResult()
         }
@@ -113,6 +111,9 @@ const Quiz = ({navigation,route}) => {
                         </TouchableOpacity>}
                         {ques===9 && <TouchableOpacity style={styles.button} onPress={handleShowResult}>
                             <Text style={styles.buttonText}>SHOW RESULTS</Text>
+                        </TouchableOpacity>}
+                        {ques!==9 && <TouchableOpacity style={styles.button} onPress={handleShowResult}>
+                            <Text style={styles.buttonText}>SUBMIT</Text>
                         </TouchableOpacity>}
                     </View>
                 </View>

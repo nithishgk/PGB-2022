@@ -18,13 +18,6 @@ app.use(
     })
   )
 
-// app.use(function (req, res, next) {
-//     res.setHeader('Access-Control-Allow-Origin', '*');
-//     res.setHeader('Access-Control-Allow-Methods', 'GET, POST, PUT, DELETE');
-//     res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-//     res.setHeader('Access-Control-Allow-Credentials', true);
-//     next();
-//     });
 
 app.get('/',function(req,res){
     res.send("hello world");
@@ -32,28 +25,28 @@ app.get('/',function(req,res){
     
 
 
-app.post('/questions', async (req, res) => {
-    try {
-        const { score } = req.body
-        const { category } = req.body
-        const { level } = req.body
-        const { description } = req.body
-        const { correct_answer } = req.body
-        const { incorrect_answers } = req.body
-         const question = await Question.create({
-             score,
-             category,
-             level,
-             description,
-             correct_answer,
-             incorrect_answers
-         })
+// app.post('/questions', async (req, res) => {
+//     try {
+//         const { score } = req.body
+//         const { category } = req.body
+//         const { level } = req.body
+//         const { description } = req.body
+//         const { correct_answer } = req.body
+//         const { incorrect_answers } = req.body
+//          const question = await Question.create({
+//              score,
+//              category,
+//              level,
+//              description,
+//              correct_answer,
+//              incorrect_answers
+//          })
 
-        return res.status(201).json(question)
-    } catch (error) {
-        return res.status(500).json({"error":error})
-    }
-})
+//         return res.status(201).json(question)
+//     } catch (error) {
+//         return res.status(500).json({"error":error})
+//     }
+// })
 
 app.get('/question', async (req, res) => {
     try {
